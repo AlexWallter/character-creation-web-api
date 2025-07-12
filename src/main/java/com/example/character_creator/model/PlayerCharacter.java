@@ -2,6 +2,7 @@ package com.example.character_creator.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,7 +17,7 @@ public class PlayerCharacter {
     private String name;
     private String race;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Attributes attributes;
 
     private int Health;
@@ -24,10 +25,10 @@ public class PlayerCharacter {
     private int exp;
     private int money;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Weapon weapon;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Armor armor;
     
     private List<String> items;
