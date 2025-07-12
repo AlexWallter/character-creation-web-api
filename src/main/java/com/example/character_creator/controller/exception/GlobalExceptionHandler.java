@@ -18,4 +18,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handlerCharacterAlreadyExists(IllegalArgumentException e) {
         return new ResponseEntity<String>(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
     }
+
+    @ExceptionHandler(Throwable.class)
+    public ResponseEntity<String> handleUnexpectedException (Throwable throwable) {
+        return new ResponseEntity<>("Sorry, an unexpected exception happend.", HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
 }
