@@ -37,6 +37,10 @@ public class CharacterServiceImpl implements CharacterService{
 
     @Override
     public String createCharacter(PlayerCharacter character) {
+        if (repository.existsByName(character.getName())) {
+            throw new IllegalArgumentException("A character with this name already exist.");
+        }
+        
         repository.save(character);
         return "Character created successfully!";
     }

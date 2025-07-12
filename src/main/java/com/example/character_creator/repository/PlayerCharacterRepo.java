@@ -7,5 +7,5 @@ import com.example.character_creator.model.PlayerCharacter;
 
 @Repository
 public interface PlayerCharacterRepo extends CrudRepository<PlayerCharacter, Long>{
-    
+    boolean existsByName(String name);
 }
