@@ -60,14 +60,19 @@ public class PlayerCharacter {
     public int getHealth() {
         return Health;
     }
-    public void setHealth(int health) {
-        Health = health;
+    public void setHealth() {
+        if(getAttributes().getStrong() >=10 ) {
+            this.Health = getAttributes().getStrong();
+        }
+        else {
+            this.Health = 10;
+        }
     }
     public int getDefense() {
         return defense;
     }
-    public void setDefense(int defense) {
-        this.defense = defense;
+    public void setDefense() {
+        this.defense = getAttributes().getQuick() - getArmor().getimpeding();
     }
     public int getExp() {
         return exp;

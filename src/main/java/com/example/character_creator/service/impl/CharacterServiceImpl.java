@@ -38,7 +38,7 @@ public class CharacterServiceImpl implements CharacterService{
     @Override
     public String createCharacter(PlayerCharacter character) {
         
-        if (character.getHealth()<=0 || character.getExp()<0 ) {
+        if ( character.getExp()<0 ) {
             throw new IllegalArgumentException("The values must be positive numbers.");
         }
         else if(!character.getAttributes().validatingAttributes()) {
@@ -47,7 +47,8 @@ public class CharacterServiceImpl implements CharacterService{
         else if (repository.existsByName(character.getName())) {
             throw new IllegalArgumentException("A character with this name already exist.");
         }
-        
+        character.setHealth();
+        character.setDefense();
         repository.save(character);
         return "Character created successfully!";
     }
