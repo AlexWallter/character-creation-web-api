@@ -1,5 +1,7 @@
 package com.example.character_creator.model;
 
+import java.util.Arrays;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -66,5 +68,20 @@ public class Attributes {
     }
     public void setVigilant(int vigilant) {
         this.vigilant = vigilant;
+    }
+    public boolean validatingAttributes() {
+        int[] allAttributes = {getAccurate(), 
+                                getCunning(), 
+                                getDiscreet(), 
+                                getPersuasive(), 
+                                getQuick(),
+                                getResolute(), 
+                                getStrong(), 
+                                getVigilant()};
+
+        int[] test =  Arrays.stream(allAttributes).filter(n -> n>=0).toArray();
+        boolean isValid = (test.length == 8);
+        
+        return isValid;
     }
 }

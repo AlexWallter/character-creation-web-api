@@ -37,7 +37,14 @@ public class CharacterServiceImpl implements CharacterService{
 
     @Override
     public String createCharacter(PlayerCharacter character) {
-        if (repository.existsByName(character.getName())) {
+        
+        if (character.getHealth()<=0 || character.getExp()<0 ) {
+            throw new IllegalArgumentException("The values must be positive numbers.");
+        }
+        else if(!character.getAttributes().validatingAttributes()) {
+            throw new IllegalArgumentException("Attributes must all be positive numbers.");
+        }
+        else if (repository.existsByName(character.getName())) {
             throw new IllegalArgumentException("A character with this name already exist.");
         }
         
