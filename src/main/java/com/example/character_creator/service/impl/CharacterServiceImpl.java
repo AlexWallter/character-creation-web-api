@@ -54,6 +54,31 @@ public class CharacterServiceImpl implements CharacterService{
     }
 
     @Override
+    public String updatingMoney(Long charId, int value) {
+        try {
+            Optional<PlayerCharacter> temp = repository.findById(charId);
+    
+            if (temp.isPresent() && value >= 0) {
+                PlayerCharacter character = temp.get();
+                character.setMoney(character.getMoney() + value);
+    
+                repository.save(character);
+            }
+            else if (temp.isPresent() && value < 0) {
+                PlayerCharacter character = temp.get();
+                character.setMoney(character.getMoney() + value);
+    
+                repository.save(character);
+            }
+            return "The character money was updated.";
+            
+        }
+        catch (Exception e) {
+            throw new IllegalArgumentException("The value or the character ID are invalid");
+        }
+    }
+
+    @Override
     public String deleteCharacterById(Long id) {
         if (!repository.existsById(id)) {
             throw new NoSuchElementException("This character wasn't found.");

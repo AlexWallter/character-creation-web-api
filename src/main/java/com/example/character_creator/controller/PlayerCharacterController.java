@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +35,11 @@ public class PlayerCharacterController {
     @PostMapping
     public ResponseEntity<String> createCharacter(@RequestBody PlayerCharacter character) {
         return ResponseEntity.ok(characterService.createCharacter(character));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updatingCharacter(@PathVariable Long id, int money) {
+        return ResponseEntity.ok(characterService.updatingMoney(id, money));
     }
 
     @DeleteMapping("/{id}")
