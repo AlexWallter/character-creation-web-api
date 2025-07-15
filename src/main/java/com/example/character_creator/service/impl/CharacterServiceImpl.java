@@ -54,11 +54,11 @@ public class CharacterServiceImpl implements CharacterService{
     }
 
     @Override
-    public String updatingMoney(Long charId, int value) {
+    public void updatingMoney(Long charId, int value) {
         try {
             Optional<PlayerCharacter> temp = repository.findById(charId);
     
-            if (temp.isPresent() && value >= 0) {
+            if (temp.isPresent() && value > 0) {
                 PlayerCharacter character = temp.get();
                 character.setMoney(character.getMoney() + value);
     
@@ -70,8 +70,29 @@ public class CharacterServiceImpl implements CharacterService{
     
                 repository.save(character);
             }
-            return "The character money was updated.";
-            
+        }
+        catch (Exception e) {
+            throw new IllegalArgumentException("The value or the character ID are invalid");
+        }
+    }
+
+    @Override
+    public void updatingExp(Long charId, int exp) {
+        try {
+            Optional<PlayerCharacter> temp = repository.findById(charId);
+    
+            if (temp.isPresent() && exp > 0) {
+                PlayerCharacter character = temp.get();
+                character.setExp((character.getExp() + exp));
+    
+                repository.save(character);
+            }
+            else if (temp.isPresent() && exp < 0) {
+                PlayerCharacter character = temp.get();
+                character.setExp((character.getExp() + exp));
+    
+                repository.save(character);
+            }
         }
         catch (Exception e) {
             throw new IllegalArgumentException("The value or the character ID are invalid");
