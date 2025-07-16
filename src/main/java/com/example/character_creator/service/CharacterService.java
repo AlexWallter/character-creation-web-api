@@ -6,7 +6,6 @@ public interface CharacterService {
     Iterable<PlayerCharacter> getAllChar();
     PlayerCharacter getByID(Long id);
     String createCharacter(PlayerCharacter character);
-    void updatingMoney(Long charID, int value);
-    void updatingExp(Long charID, int value);
+    void updatingCharacter(Long id, PlayerCharacter character);
     String deleteCharacterById(Long id);
 }

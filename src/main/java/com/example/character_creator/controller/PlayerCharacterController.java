@@ -38,10 +38,9 @@ public class PlayerCharacterController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updatingCharacter(@PathVariable Long id, int money, int exp) {
-        characterService.updatingMoney(id, money);
-        characterService.updatingExp(id, exp);
-        return ResponseEntity.ok("The character was updated successfulli.");
+    public ResponseEntity<String> updatingCharacter(@PathVariable Long id, @RequestBody PlayerCharacter character) {
+        characterService.updatingCharacter(id, character);
+        return ResponseEntity.ok("The character was updated successfully.");
     }
 
     @DeleteMapping("/{id}")
