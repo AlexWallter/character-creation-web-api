@@ -1,11 +1,13 @@
 package com.example.character_creator.service;
 
-import com.example.character_creator.model.PlayerCharacter;
+import java.util.List;
+
+import com.example.character_creator.dto.PlayerCharacterDTO;
 
 public interface CharacterService {
-    Iterable<PlayerCharacter> getAllChar();
-    PlayerCharacter getByID(Long id);
-    String createCharacter(PlayerCharacter character);
-    void updatingCharacter(Long id, PlayerCharacter character);
+    List<PlayerCharacterDTO> getAllChar();
+    PlayerCharacterDTO getByID(Long id);
+    String createCharacter(PlayerCharacterDTO character);
+    void updatingCharacter(Long id, PlayerCharacterDTO character);
     String deleteCharacterById(Long id);
 }
