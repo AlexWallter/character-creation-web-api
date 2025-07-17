@@ -2,19 +2,26 @@ package com.example.character_creator.dto;
 
 import java.util.List;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.example.character_creator.model.Armor;
 import com.example.character_creator.model.Attributes;
 import com.example.character_creator.model.Weapon;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
+
 public record PlayerCharacterDTO(Long id, 
-        String characterName,
-        String race,
-        Attributes attributes,
+        @NotNull @NotBlank @Length(min = 1, max = 14) String characterName,
+        @NotBlank String race,
+        @NotNull @Valid Attributes attributes,
         int health,
         int defense,
-        int exp,
-        int money,
-        Weapon weapon,
-        Armor armor,
+        @PositiveOrZero int exp,
+        @PositiveOrZero int money,
+        @NotNull @Valid Weapon weapon,
+        @NotNull @Valid Armor armor,
         List<String> items) {
 }

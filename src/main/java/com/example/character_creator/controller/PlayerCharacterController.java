@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.character_creator.dto.PlayerCharacterDTO;
 import com.example.character_creator.service.CharacterService;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 @RestController
 @RequestMapping("/character")
 public class PlayerCharacterController {
@@ -30,23 +34,24 @@ public class PlayerCharacterController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PlayerCharacterDTO> getCharacterByid(@PathVariable Long id) {
+    public ResponseEntity<PlayerCharacterDTO> getCharacterByid(@PathVariable @NotNull @Positive Long id) {
         return ResponseEntity.ok(characterService.getByID(id));
     }
 
     @PostMapping
-    public ResponseEntity<String> createCharacter(@RequestBody PlayerCharacterDTO character) {
+    public ResponseEntity<String> createCharacter(@RequestBody @NotNull @Valid PlayerCharacterDTO character) {
         return ResponseEntity.ok(characterService.createCharacter(character));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updatingCharacter(@PathVariable Long id, @RequestBody PlayerCharacterDTO character) {
+    public ResponseEntity<String> updatingCharacter(@PathVariable @NotNull @Positive Long id,
+                                                @RequestBody @NotNull @Valid PlayerCharacterDTO character) {
         characterService.updatingCharacter(id, character);
         return ResponseEntity.ok("The character was updated successfully.");
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteCharacter(@PathVariable Long id) {
+    public ResponseEntity<String> deleteCharacter(@PathVariable @NotNull @Positive Long id) {
         return ResponseEntity.ok(characterService.deleteCharacterById(id));
     }
 }

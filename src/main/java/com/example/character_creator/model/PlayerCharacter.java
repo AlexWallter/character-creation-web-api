@@ -2,32 +2,56 @@ package com.example.character_creator.model;
 
 import java.util.List;
 
+import org.hibernate.validator.constraints.Length;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity(name = "tb_characters")
 public class PlayerCharacter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Long id;
+    @NotNull
+    @NotBlank
+    @Length(min = 1, max = 14)
     private String name;
+
+    @NotNull
+    @NotBlank
     private String race;
 
+    @NotNull 
+    @Valid
     @OneToOne(cascade = CascadeType.ALL)
     private Attributes attributes;
 
     private int Health;
     private int defense;
+
+    @NotNull
+    @PositiveOrZero
     private int exp;
+
+    @NotNull
+    @PositiveOrZero
     private int money;
 
+    @NotNull  
+    @Valid
     @OneToOne(cascade = CascadeType.ALL)
     private Weapon weapon;
 
+    @NotNull  
+    @Valid
     @OneToOne(cascade = CascadeType.ALL)
     private Armor armor;
     

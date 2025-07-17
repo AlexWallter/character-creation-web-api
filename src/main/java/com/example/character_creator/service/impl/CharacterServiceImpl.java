@@ -24,8 +24,6 @@ public class CharacterServiceImpl implements CharacterService{
         this.playerCharacterMapper = playerCharacterMapper;
     }
     
-    
-    
     @Override
     public List<PlayerCharacterDTO> getAllChar() {
         List<PlayerCharacterDTO> character = new ArrayList<>();
