@@ -34,6 +34,11 @@ public class PlayerCharacter {
     @OneToOne(cascade = CascadeType.ALL)
     private Attributes attributes;
 
+    @NotNull
+    @Valid
+    @OneToOne(cascade = CascadeType.ALL)
+    private Corruption corruption;
+
     private int Health;
     private int defense;
 
@@ -127,5 +132,19 @@ public class PlayerCharacter {
     }
     public void setItems(List<String> items) {
         this.items = items;
+    }
+
+    public Corruption getCorruption() {
+        return corruption;
+    }
+    
+    public void setCorruption(Corruption corruption) {
+        this.corruption = corruption;
+    }
+
+    public void setCharacterCorruptionThreshold() {
+        //Limiar de corrupcao arredondado para cima
+        int corruptionThreshold = getAttributes().getVigilant()/2 + getAttributes().getVigilant()%2;
+        this.corruption.setCorruptionThreshold(corruptionThreshold);
     }
 }

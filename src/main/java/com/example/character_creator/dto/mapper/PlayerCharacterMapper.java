@@ -15,7 +15,8 @@ public class PlayerCharacterMapper {
         return new PlayerCharacterDTO(character.getId(), 
                 character.getName(), 
                 character.getRace(), 
-                character.getAttributes(), 
+                character.getAttributes(),
+                character.getCorruption(), 
                 character.getHealth(), 
                 character.getDefense(), 
                 character.getExp(), 
@@ -36,6 +37,9 @@ public class PlayerCharacterMapper {
         character.setName(characterDTO.characterName());
         character.setRace(characterDTO.race());
         character.setAttributes(characterDTO.attributes());
+        character.setCorruption(characterDTO.corruption());
+        character.setCharacterCorruptionThreshold();
+        character.getCorruption().setTotalCorruption();
         character.setHealth();
         character.setExp(characterDTO.exp());
         character.setMoney(characterDTO.money());
