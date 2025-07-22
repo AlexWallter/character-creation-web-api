@@ -4,7 +4,11 @@ import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.example.character_creator.enums.Race;
+import com.example.character_creator.enums.converters.RaceConverter;
+
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,8 +30,8 @@ public class PlayerCharacter {
     private String name;
 
     @NotNull
-    @NotBlank
-    private String race;
+    @Convert(converter = RaceConverter.class)
+    private Race race;
 
     @NotNull 
     @Valid
@@ -74,10 +78,10 @@ public class PlayerCharacter {
     public void setName(String name) {
         this.name = name;
     }
-    public String getRace() {
+    public Race getRace() {
         return race;
     }
-    public void setRace(String race) {
+    public void setRace(Race race) {
         this.race = race;
     }
     public Attributes getAttributes() {

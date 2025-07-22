@@ -3,6 +3,7 @@ package com.example.character_creator.dto.mapper;
 import org.springframework.stereotype.Component;
 
 import com.example.character_creator.dto.PlayerCharacterDTO;
+import com.example.character_creator.enums.Race;
 import com.example.character_creator.model.PlayerCharacter;
 
 @Component
@@ -14,7 +15,7 @@ public class PlayerCharacterMapper {
 
         return new PlayerCharacterDTO(character.getId(), 
                 character.getName(), 
-                character.getRace(), 
+                character.getRace().getValue(), 
                 character.getAttributes(),
                 character.getCorruption(), 
                 character.getHealth(), 
@@ -35,7 +36,7 @@ public class PlayerCharacterMapper {
         PlayerCharacter character = new PlayerCharacter();
         character.setId(characterDTO.id());
         character.setName(characterDTO.characterName());
-        character.setRace(characterDTO.race());
+        character.setRace(convertRaceValue(characterDTO.race()));
         character.setAttributes(characterDTO.attributes());
         character.setCorruption(characterDTO.corruption());
         character.setCharacterCorruptionThreshold();
@@ -50,4 +51,19 @@ public class PlayerCharacterMapper {
 
         return character;
     }
+
+    public Race convertRaceValue(String value) {
+        if (value == null) {
+            return null;
+        }
+
+        return switch (value) {
+            case "humano" -> Race.HUMANO;
+            case "cambiante" -> Race.CAMBIANTE;
+            case "goblin" -> Race.GOBLIN;
+            case "ogro" -> Race.OGRO;            
+            default -> throw new IllegalArgumentException("The name of the race is incorrect/invalid");
+        };
+    }
+
 }
