@@ -2,6 +2,10 @@ package com.example.character_creator.model;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.example.character_creator.enums.WeaponQuality;
+import com.example.character_creator.enums.converters.WeaponQualityConverter;
+
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,8 +30,8 @@ public class Weapon {
     private int damage;
 
     @NotNull
-    @NotBlank
-    private String quality;
+    @Convert(converter = WeaponQualityConverter.class)
+    private WeaponQuality quality;
     
     public Long getId() {
         return id;
@@ -47,10 +51,10 @@ public class Weapon {
     public void setDamage(int damage) {
         this.damage = damage;
     }
-    public String getQuality() {
+    public WeaponQuality getQuality() {
         return quality;
     }
-    public void setQuality(String quality) {
+    public void setQuality(WeaponQuality quality) {
         this.quality = quality;
     }
 }
