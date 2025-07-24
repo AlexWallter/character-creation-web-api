@@ -20,7 +20,7 @@ public class Weapon {
     @NotBlank
     @Length(min = 2, max = 14)
     private String name;
-
+    
     @NotNull
     @Positive
     private int damage;
@@ -29,6 +29,12 @@ public class Weapon {
     @NotBlank
     private String quality;
     
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
     public String getName() {
         return name;
     }

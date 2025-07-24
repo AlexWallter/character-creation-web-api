@@ -1,9 +1,13 @@
 package com.example.character_creator.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.example.character_creator.dto.WeaponDTO;
+import com.example.character_creator.dto.mapper.WeaponMapper;
 import com.example.character_creator.model.Weapon;
 import com.example.character_creator.repository.WeaponRepo;
 import com.example.character_creator.service.WeaponService;
@@ -11,18 +15,23 @@ import com.example.character_creator.service.WeaponService;
 @Service
 public class WeaponServiceImpl implements WeaponService {
     private final WeaponRepo repository;
+    private final WeaponMapper weaponMapper;
 
-    public WeaponServiceImpl(WeaponRepo repository) {
+    public WeaponServiceImpl(WeaponRepo repository, WeaponMapper weaponMapper) {
         this.repository = repository;
+        this.weaponMapper = weaponMapper;
     }
 
     @Override
-    public Iterable<Weapon> getAllWeapons() {
-        return repository.findAll();
+    public List<WeaponDTO> getAllWeapons() {
+        List<WeaponDTO> weaponDTOs = new ArrayList<>();
+
+        repository.findAll().forEach(record -> weaponDTOs.add(weaponMapper.toWeaponDTO(record)));
+        return weaponDTOs;
     }
 
     @Override
-    public Weapon getWeaponByid(Long id) {
+    public WeaponDTO getWeaponByid(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("The id of the weapon is incorrect");
         }
@@ -30,7 +39,8 @@ public class WeaponServiceImpl implements WeaponService {
         Optional<Weapon> temp = repository.findById(id);
         if (temp.isPresent()) {
             Weapon weapon = temp.get();
-            return weapon;
+
+            return weaponMapper.toWeaponDTO(weapon);
         }
         else {
             return null;
@@ -38,13 +48,13 @@ public class WeaponServiceImpl implements WeaponService {
     }
 
     @Override
-    public Weapon createWeapon(Weapon weapon) {
-        repository.save(weapon);
+    public WeaponDTO createWeapon(WeaponDTO weapon) {
+        repository.save(weaponMapper.toWeaponEntity(weapon));
         return weapon;
     }
 
     @Override
-    public Weapon uptadeWeapon(Long id, Weapon weapon) {
+    public WeaponDTO uptadeWeapon(Long id, WeaponDTO weapon) {
         if (id == null) {
             throw new IllegalArgumentException("The id of the weapon is incorrect");
         }
@@ -53,11 +63,11 @@ public class WeaponServiceImpl implements WeaponService {
         if (temp.isPresent()) {
             Weapon weaponToUpdate = temp.get();
 
-            weaponToUpdate.setName(weapon.getName());
-            weaponToUpdate.setDamage(weapon.getDamage());
-            weaponToUpdate.setQuality(weapon.getQuality());
+            weaponToUpdate.setName(weapon.name());
+            weaponToUpdate.setDamage(weapon.damage());
+            weaponToUpdate.setQuality(weapon.quality());
             repository.save(weaponToUpdate);
-            return weaponToUpdate;
+            return weaponMapper.toWeaponDTO(weaponToUpdate);
         }
         else {
             return null;

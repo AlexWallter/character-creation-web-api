@@ -1,5 +1,7 @@
 package com.example.character_creator.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.character_creator.model.Weapon;
+import com.example.character_creator.dto.WeaponDTO;
 import com.example.character_creator.service.WeaponService;
 
 import jakarta.validation.Valid;
@@ -29,23 +31,23 @@ public class WeaponController {
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<Weapon>> getAllWeapon() {
+    public ResponseEntity<List<WeaponDTO>> getAllWeapon() {
         return ResponseEntity.ok(weaponService.getAllWeapons());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Weapon> getWeapon(@PathVariable @NotNull @Positive Long id) {
+    public ResponseEntity<WeaponDTO> getWeapon(@PathVariable @NotNull @Positive Long id) {
         return ResponseEntity.ok(weaponService.getWeaponByid(id));
     }
 
     @PostMapping
-    public ResponseEntity<Weapon> createWeapon(@RequestBody @NotNull @Valid Weapon weapon) {
+    public ResponseEntity<WeaponDTO> createWeapon(@RequestBody @NotNull @Valid WeaponDTO weapon) {
         return ResponseEntity.ok(weaponService.createWeapon(weapon));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Weapon> updateWeapon(@PathVariable @NotNull @Positive Long id, 
-            @RequestBody @NotNull @Valid Weapon weapon) {
+    public ResponseEntity<WeaponDTO> updateWeapon(@PathVariable @NotNull @Positive Long id, 
+            @RequestBody @NotNull @Valid WeaponDTO weapon) {
                 return ResponseEntity.ok(weaponService.uptadeWeapon(id, weapon));
             }
 
