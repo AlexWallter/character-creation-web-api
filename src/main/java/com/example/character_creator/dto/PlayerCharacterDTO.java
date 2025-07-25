@@ -7,7 +7,6 @@ import org.hibernate.validator.constraints.Length;
 import com.example.character_creator.model.Armor;
 import com.example.character_creator.model.Attributes;
 import com.example.character_creator.model.Corruption;
-import com.example.character_creator.model.Weapon;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -23,7 +22,7 @@ public record PlayerCharacterDTO(Long id,
         int defense,
         @PositiveOrZero int exp,
         @PositiveOrZero int money,
-        @NotNull @Valid Weapon weapon,
+        @NotNull @Valid WeaponDTO weapon,
         @NotNull @Valid Armor armor,
         List<String> items) {
 }

@@ -26,6 +26,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Throwable.class)
     public ResponseEntity<String> handleUnexpectedException (Throwable throwable) {
-        return new ResponseEntity<>(throwable.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(throwable.getCause().toString(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
