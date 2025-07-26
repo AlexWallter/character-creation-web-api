@@ -11,16 +11,22 @@ import com.example.character_creator.dto.PlayerCharacterDTO;
 import com.example.character_creator.dto.mapper.PlayerCharacterMapper;
 import com.example.character_creator.model.PlayerCharacter;
 import com.example.character_creator.repository.PlayerCharacterRepo;
+import com.example.character_creator.repository.WeaponRepo;
 import com.example.character_creator.service.CharacterService;
 
 @Service
 public class CharacterServiceImpl implements CharacterService{
 
     private final PlayerCharacterRepo repository;
+    private final WeaponRepo weaponRepo;
     private final PlayerCharacterMapper playerCharacterMapper;
 
-    public CharacterServiceImpl(PlayerCharacterRepo repository, PlayerCharacterMapper playerCharacterMapper) {
+    public CharacterServiceImpl(PlayerCharacterRepo repository, 
+                                PlayerCharacterMapper playerCharacterMapper,
+                                WeaponRepo weaponRepo) 
+    {
         this.repository = repository;
+        this.weaponRepo = weaponRepo;
         this.playerCharacterMapper = playerCharacterMapper;
     }
     
@@ -61,9 +67,11 @@ public class CharacterServiceImpl implements CharacterService{
             throw new IllegalArgumentException("A character with this name already exist.");
         }
         PlayerCharacter playerCharacter = playerCharacterMapper.toEntity(character);
-
-        playerCharacter.setHealth();
-        playerCharacter.setDefense();
+        String weaponName = playerCharacter.getWeapon().getName();
+        
+        if (weaponRepo.existsByName(weaponName)) {
+           playerCharacter.setWeapon(weaponRepo.findByName(weaponName)); 
+        }
         repository.save(playerCharacter);
         return "Character created successfully!";
     }
