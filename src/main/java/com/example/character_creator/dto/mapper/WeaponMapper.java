@@ -16,7 +16,8 @@ public class WeaponMapper {
         return new WeaponDTO(weapon.getId(), 
                             weapon.getName(), 
                             weapon.getDamage(), 
-                            weapon.getQuality().getValue());
+                            weapon.getQuality().getValue(),
+                            weapon.getQualityDescription());
     }
 
     public Weapon toWeaponEntity(WeaponDTO weaponDTO) {
@@ -30,6 +31,7 @@ public class WeaponMapper {
         weapon.setName(weaponDTO.name());
         weapon.setDamage(weaponDTO.damage());
         weapon.setQuality(convertQualityToValue(weaponDTO.quality()));
+        weapon.setQualityDescription(weaponDTO.quality());
 
         return weapon;
     }
@@ -41,6 +43,8 @@ public class WeaponMapper {
             case "equilibrada" -> WeaponQuality.EQUILIBRADA;
             case "precisa" -> WeaponQuality.PRECISA;
             case "articulada" -> WeaponQuality.ARTICULADA;
+            case "longa" -> WeaponQuality.LONGA;
+            case "sem qualidade" -> WeaponQuality.NO_QUALITY;
             default -> throw new IllegalArgumentException("The weapon quality is not valid.");
         };
     }

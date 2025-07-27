@@ -57,18 +57,16 @@ public class CharacterServiceImpl implements CharacterService{
     @Override
     public String createCharacter(PlayerCharacterDTO character) {
         
-        if ( character.exp()<0 ) {
+        if ( character.exp()<0 || !character.attributes().validatingAttributes()) {
             throw new IllegalArgumentException("The values must be positive numbers.");
-        }
-        else if(!character.attributes().validatingAttributes()) {
-            throw new IllegalArgumentException("Attributes must all be positive numbers.");
         }
         else if (repository.existsByName(character.characterName())) {
             throw new IllegalArgumentException("A character with this name already exist.");
         }
+        
         PlayerCharacter playerCharacter = playerCharacterMapper.toEntity(character);
         String weaponName = playerCharacter.getWeapon().getName();
-        
+
         if (weaponRepo.existsByName(weaponName)) {
            playerCharacter.setWeapon(weaponRepo.findByName(weaponName)); 
         }

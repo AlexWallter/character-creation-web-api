@@ -5,7 +5,9 @@ public enum WeaponQuality {
     CONTUNDENTE("contundente"),
     EQUILIBRADA("equilibrada"),
     PRECISA("precisa"),
-    ARTICULADA("articulada");
+    ARTICULADA("articulada"),
+    LONGA("longa"),
+    NO_QUALITY("sem qualidade");
 
     private String quality;
     

@@ -32,6 +32,9 @@ public class Weapon {
     @NotNull
     @Convert(converter = WeaponQualityConverter.class)
     private WeaponQuality quality;
+
+    @NotNull
+    private String qualityDescription;
     
     public Long getId() {
         return id;
@@ -56,5 +59,36 @@ public class Weapon {
     }
     public void setQuality(WeaponQuality quality) {
         this.quality = quality;
+    }
+    public String getQualityDescription() {
+        return qualityDescription;
+    }
+    public void setQualityDescription(String weaponQuality) {
+        this.qualityDescription = switch (weaponQuality) {
+            case "impacto profundo" -> "A arma causa +1 de dano.";
+
+            case "contundente" -> "A arma não tem habilidades cortantes ou perfurantes e," +
+                                  " portanto, utiliza um (1) Dado de Efeito menor que outras armas de seu tipo.";
+            
+            case "equilibrada" -> "A arma fornece +1 na Defesa.";
+            
+            case "precisa" -> "Concede +1 em Testes de ataque.";
+            
+            case "articulada" -> "Mesmo se uma aparada for bem-sucedida, " + 
+                                 "o ataque acerta se o dado resultar" +
+                                " em um número ímpar; caso em que a arma causa" +
+                                " 1D6 de dano. Este dano secundário não é afetado" +
+                                " por quaisquer habilidades; ele permanece 1D6 independentemente" +
+                                " das outras habilidades do atacante.";
+            
+            case "longa" -> "concedendo ao portador um" + //
+                                "Ataque Livre a cada turno contra um oponente" + //
+                                "que entre na distância do combate corpo a corpo," + //
+                                "desde que esse oponente não esteja armado com" + //
+                                "uma arma Longa.";
+            
+            case "sem qualidade" -> "A arma não têm qualidades especificas.";
+            default -> throw new IllegalArgumentException("testando");
+        };
     }
 }

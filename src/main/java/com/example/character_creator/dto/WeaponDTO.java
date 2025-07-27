@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Positive;
 public record WeaponDTO(@Positive Long id, 
                         @NotNull @NotBlank @Length(min = 2, max = 14) String name,
                         @NotNull @Positive int damage,
-                        @NotNull @NotBlank String quality
+                        @NotNull String quality,
+                        @NotNull String qualityDescription
                         ) {
 }
