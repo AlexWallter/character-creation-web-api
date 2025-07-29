@@ -3,6 +3,7 @@ package com.example.character_creator.dto.mapper;
 import org.springframework.stereotype.Component;
 
 import com.example.character_creator.dto.WeaponDTO;
+import com.example.character_creator.enums.Dice;
 import com.example.character_creator.enums.WeaponQuality;
 import com.example.character_creator.model.Weapon;
 
@@ -15,7 +16,7 @@ public class WeaponMapper {
 
         return new WeaponDTO(weapon.getId(), 
                             weapon.getName(), 
-                            weapon.getDamage(), 
+                            weapon.getDamage().getDice(), 
                             weapon.getQuality().getValue(),
                             weapon.getQualityDescription());
     }
@@ -29,7 +30,7 @@ public class WeaponMapper {
         
         weapon.setId(weaponDTO.id());
         weapon.setName(weaponDTO.name());
-        weapon.setDamage(weaponDTO.damage());
+        weapon.setDamage(convertDiceToValue(weaponDTO.damage()));
         weapon.setQuality(convertQualityToValue(weaponDTO.quality()));
         weapon.setQualityDescription(weaponDTO.quality());
 
@@ -46,6 +47,19 @@ public class WeaponMapper {
             case "longa" -> WeaponQuality.LONGA;
             case "sem qualidade" -> WeaponQuality.NO_QUALITY;
             default -> throw new IllegalArgumentException("The weapon quality is not valid.");
+        };
+    }
+
+    public Dice convertDiceToValue(String dice) {
+        return switch (dice) {
+            case "d4" -> Dice.D4;
+            case "d6" -> Dice.D6;
+            case "d8" -> Dice.D8;
+            case "d10" -> Dice.D10;
+            case "d12" -> Dice.D12;
+            case "d20" -> Dice.D20;
+            case "d100" -> Dice.D100;
+            default -> throw new IllegalArgumentException("Dice value is invalid.");
         };
     }
 }
