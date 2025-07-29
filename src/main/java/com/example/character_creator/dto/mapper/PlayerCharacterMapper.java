@@ -7,10 +7,13 @@ import com.example.character_creator.enums.Race;
 import com.example.character_creator.model.PlayerCharacter;
 
 @Component
-public class PlayerCharacterMapper {    
+public class PlayerCharacterMapper {
+
     private final WeaponMapper weaponMapper;
-    public PlayerCharacterMapper(WeaponMapper weaponMapper) {
+    private final ArmorMapper armorMapper;
+    public PlayerCharacterMapper(WeaponMapper weaponMapper, ArmorMapper armorMapper) {
         this.weaponMapper = weaponMapper;
+        this.armorMapper = armorMapper;
     }
     
 
@@ -29,9 +32,8 @@ public class PlayerCharacterMapper {
                 character.getExp(), 
                 character.getMoney(),
                 weaponMapper.toWeaponDTO(character.getWeapon()),  
-                character.getArmor(), 
+                armorMapper.toArmorDTO(character.getArmor()), 
                 character.getItems());
-
     }
 
     public PlayerCharacter toEntity(PlayerCharacterDTO characterDTO) {
@@ -51,7 +53,7 @@ public class PlayerCharacterMapper {
         character.setExp(characterDTO.exp());
         character.setMoney(characterDTO.money());
         character.setWeapon(weaponMapper.toWeaponEntity(characterDTO.weapon()));
-        character.setArmor(characterDTO.armor());
+        character.setArmor(armorMapper.toArmorEntity(characterDTO.armor()));
         character.setDefense();
         character.setItems(characterDTO.items());
 

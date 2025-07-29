@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.example.character_creator.model.Armor;
 import com.example.character_creator.model.Attributes;
 import com.example.character_creator.model.Corruption;
 
@@ -23,6 +22,6 @@ public record PlayerCharacterDTO(Long id,
         @PositiveOrZero int exp,
         @PositiveOrZero int money,
         @NotNull @Valid WeaponDTO weapon,
-        @NotNull @Valid Armor armor,
+        @NotNull @Valid ArmorDTO armor,
         List<String> items) {
 }
