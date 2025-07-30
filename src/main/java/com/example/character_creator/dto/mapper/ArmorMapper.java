@@ -3,6 +3,7 @@ package com.example.character_creator.dto.mapper;
 import org.springframework.stereotype.Component;
 
 import com.example.character_creator.dto.ArmorDTO;
+import com.example.character_creator.enums.ArmorQuality;
 import com.example.character_creator.enums.ArmorWeight;
 import com.example.character_creator.model.Armor;
 
@@ -16,6 +17,7 @@ public class ArmorMapper {
         return new ArmorDTO(armor.getId(),
                              armor.getName(),
                              armor.getArmorWeight().getWeight(),
+                             armor.getArmorQuality().getQuality(),
                              armor.getProtection().getDice(), 
                              armor.getimpeding());
     }
@@ -29,6 +31,7 @@ public class ArmorMapper {
         armor.setId(armorDTO.id());
         armor.setName(armorDTO.name());
         armor.setArmorWeight(convertArmorWeightValue(armorDTO.armorWeight()));
+        armor.setArmorQuality(convertArmorQualityValue(armorDTO.armorQuality()));
         armor.setProtection(ConvertStringToValueEnum.convertDiceToValue(armorDTO.protection()));
         armor.setImpeding(armorDTO.impeding());
         
@@ -41,6 +44,14 @@ public class ArmorMapper {
             case "media" -> ArmorWeight.MEDIA;
             case "pesada" -> ArmorWeight.PESADA;
             default -> throw new IllegalArgumentException("The Armor weight is invalid.");
+        };
+    }
+
+    public ArmorQuality convertArmorQualityValue(String armorQuality) {
+        return switch (armorQuality) {
+            case "desajeitada" -> ArmorQuality.DESAJEITADA;
+            case "flexivel" -> ArmorQuality.FLEXIVEL;
+            default -> throw new IllegalArgumentException("the quality of the armor is invalid.");
         };
     }
 }

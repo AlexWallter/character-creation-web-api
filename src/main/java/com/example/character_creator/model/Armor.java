@@ -1,7 +1,9 @@
 package com.example.character_creator.model;
 
+import com.example.character_creator.enums.ArmorQuality;
 import com.example.character_creator.enums.ArmorWeight;
 import com.example.character_creator.enums.Dice;
+import com.example.character_creator.enums.converters.ArmorQualityConverter;
 import com.example.character_creator.enums.converters.ArmorWeightConvert;
 import com.example.character_creator.enums.converters.DiceConverter;
 
@@ -33,6 +35,10 @@ public class Armor {
     private ArmorWeight armorWeight;
 
     @NotNull
+    @Convert(converter = ArmorQualityConverter.class)
+    private ArmorQuality armorQuality;
+
+    @NotNull
     @PositiveOrZero
     private int impeding;
     
@@ -50,6 +56,12 @@ public class Armor {
     }
     public ArmorWeight getArmorWeight() {
         return armorWeight;
+    }
+    public ArmorQuality getArmorQuality() {
+        return armorQuality;
+    }
+    public void setArmorQuality(ArmorQuality armorQuality) {
+        this.armorQuality = armorQuality;
     }
     public void setArmorWeight(ArmorWeight armorWeight) {
         this.armorWeight = armorWeight;
