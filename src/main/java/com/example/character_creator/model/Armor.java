@@ -12,9 +12,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NegativeOrZero;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity(name = "tb_armor")
 public class Armor {
@@ -39,7 +39,7 @@ public class Armor {
     private ArmorQuality armorQuality;
 
     @NotNull
-    @PositiveOrZero
+    @NegativeOrZero
     private int impeding;
     
     public Long getId() {
@@ -75,7 +75,29 @@ public class Armor {
     public int getimpeding() {
         return impeding;
     }
-    public void setImpeding(int impeding) {
-        this.impeding = impeding;
+    public void setImpeding() {
+        switch (armorWeight.getWeight()) {
+            case "leve":
+                impeding = -2;
+                break;
+            case "media":
+                impeding = -3;
+                break;
+            case "pesada":
+                impeding = -4;
+                break;
+            default:
+                throw new IllegalArgumentException("The armor weight must be leve, media or pesada");
+        }
+
+        switch (armorQuality.getQuality()) {
+            case "desajeitada":
+                --impeding;
+                break;
+            case "flexivel":
+                ++impeding;
+            default:
+                break;
+        }
     }    
 }
