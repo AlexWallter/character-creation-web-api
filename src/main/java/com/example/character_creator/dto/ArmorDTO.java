@@ -6,6 +6,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 
 public record ArmorDTO(Long id,
         @NotNull @NotBlank String name,
+        @NotNull @NotBlank String armorWeight, 
         @NotNull String protection,
         @NotNull @PositiveOrZero int impeding ) {    
 }

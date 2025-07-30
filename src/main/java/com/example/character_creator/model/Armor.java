@@ -1,6 +1,8 @@
 package com.example.character_creator.model;
 
+import com.example.character_creator.enums.ArmorWeight;
 import com.example.character_creator.enums.Dice;
+import com.example.character_creator.enums.converters.ArmorWeightConvert;
 import com.example.character_creator.enums.converters.DiceConverter;
 
 import jakarta.persistence.Convert;
@@ -25,7 +27,11 @@ public class Armor {
     @NotNull
     @Convert(converter = DiceConverter.class)
     private Dice protection;
-    
+
+    @NotNull
+    @Convert(converter = ArmorWeightConvert.class)
+    private ArmorWeight armorWeight;
+
     @NotNull
     @PositiveOrZero
     private int impeding;
@@ -41,6 +47,12 @@ public class Armor {
     }
     public void setName(String name) {
         this.name = name;
+    }
+    public ArmorWeight getArmorWeight() {
+        return armorWeight;
+    }
+    public void setArmorWeight(ArmorWeight armorWeight) {
+        this.armorWeight = armorWeight;
     }
     public Dice getProtection() {
         return protection;

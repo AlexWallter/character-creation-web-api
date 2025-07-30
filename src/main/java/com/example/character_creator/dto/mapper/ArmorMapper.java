@@ -3,6 +3,7 @@ package com.example.character_creator.dto.mapper;
 import org.springframework.stereotype.Component;
 
 import com.example.character_creator.dto.ArmorDTO;
+import com.example.character_creator.enums.ArmorWeight;
 import com.example.character_creator.model.Armor;
 
 @Component
@@ -14,6 +15,7 @@ public class ArmorMapper {
 
         return new ArmorDTO(armor.getId(),
                              armor.getName(),
+                             armor.getArmorWeight().getWeight(),
                              armor.getProtection().getDice(), 
                              armor.getimpeding());
     }
@@ -26,9 +28,19 @@ public class ArmorMapper {
         Armor armor = new Armor();
         armor.setId(armorDTO.id());
         armor.setName(armorDTO.name());
+        armor.setArmorWeight(convertArmorWeightValue(armorDTO.armorWeight()));
         armor.setProtection(ConvertStringToValueEnum.convertDiceToValue(armorDTO.protection()));
         armor.setImpeding(armorDTO.impeding());
         
         return armor;
+    }
+
+    public ArmorWeight convertArmorWeightValue(String armorWeight) {
+        return switch (armorWeight) {
+            case "leve" -> ArmorWeight.LEVE;
+            case "media" -> ArmorWeight.MEDIA;
+            case "pesada" -> ArmorWeight.PESADA;
+            default -> throw new IllegalArgumentException("The Armor weight is invalid.");
+        };
     }
 }
