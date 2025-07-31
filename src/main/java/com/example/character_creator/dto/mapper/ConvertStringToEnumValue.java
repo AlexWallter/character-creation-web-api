@@ -2,7 +2,7 @@ package com.example.character_creator.dto.mapper;
 
 import com.example.character_creator.enums.Dice;
 
-public class ConvertStringToValueEnum {
+public class ConvertStringToEnumValue {
     static public Dice convertDiceToValue(String dice) {
         return switch (dice) {
             case "d4" -> Dice.D4;

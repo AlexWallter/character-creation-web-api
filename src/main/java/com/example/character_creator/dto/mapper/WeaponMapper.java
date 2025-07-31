@@ -29,7 +29,7 @@ public class WeaponMapper {
         
         weapon.setId(weaponDTO.id());
         weapon.setName(weaponDTO.name());
-        weapon.setDamage(ConvertStringToValueEnum.convertDiceToValue(weaponDTO.damage()));
+        weapon.setDamage(ConvertStringToEnumValue.convertDiceToValue(weaponDTO.damage()));
         weapon.setQuality(convertQualityToValue(weaponDTO.quality()));
         weapon.setQualityDescription(weaponDTO.quality());
 

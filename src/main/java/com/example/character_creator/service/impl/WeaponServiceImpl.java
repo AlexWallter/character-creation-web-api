@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.example.character_creator.dto.WeaponDTO;
-import com.example.character_creator.dto.mapper.ConvertStringToValueEnum;
+import com.example.character_creator.dto.mapper.ConvertStringToEnumValue;
 import com.example.character_creator.dto.mapper.WeaponMapper;
 import com.example.character_creator.model.Weapon;
 import com.example.character_creator.repository.WeaponRepo;
@@ -65,7 +65,7 @@ public class WeaponServiceImpl implements WeaponService {
             Weapon weaponToUpdate = temp.get();
 
             weaponToUpdate.setName(weapon.name());
-            weaponToUpdate.setDamage(ConvertStringToValueEnum.convertDiceToValue(weapon.damage()));
+            weaponToUpdate.setDamage(ConvertStringToEnumValue.convertDiceToValue(weapon.damage()));
             weaponToUpdate.setQuality(weaponMapper.convertQualityToValue(weapon.quality()));
             repository.save(weaponToUpdate);
             return weaponMapper.toWeaponDTO(weaponToUpdate);

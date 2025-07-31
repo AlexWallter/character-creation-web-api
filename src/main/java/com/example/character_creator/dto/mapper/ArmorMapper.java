@@ -32,7 +32,7 @@ public class ArmorMapper {
         armor.setName(armorDTO.name());
         armor.setArmorWeight(convertArmorWeightValue(armorDTO.armorWeight()));
         armor.setArmorQuality(convertArmorQualityValue(armorDTO.armorQuality()));
-        armor.setProtection(ConvertStringToValueEnum.convertDiceToValue(armorDTO.protection()));
+        armor.setProtection(ConvertStringToEnumValue.convertDiceToValue(armorDTO.protection()));
         armor.setImpeding();
         
         return armor;
