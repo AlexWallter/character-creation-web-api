@@ -89,7 +89,7 @@ public class Weapon {
                                 "uma arma Longa.";
             
             case "sem qualidade" -> "A arma não têm qualidades especificas.";
-            default -> throw new IllegalArgumentException("testando");
+            default -> throw new IllegalArgumentException("Weapon quality name is invalid.");
         };
     }
 }

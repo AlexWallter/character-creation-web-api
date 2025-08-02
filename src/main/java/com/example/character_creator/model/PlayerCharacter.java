@@ -106,7 +106,7 @@ public class PlayerCharacter {
         return defense;
     }
     public void setDefense() {
-        this.defense = getAttributes().getQuick() - getArmor().getimpeding();
+        this.defense = getAttributes().getQuick() + getArmor().getimpeding();
     }
     public int getExp() {
         return exp;

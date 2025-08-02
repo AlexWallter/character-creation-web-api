@@ -91,11 +91,12 @@ public class Armor {
         }
 
         switch (armorQuality.getQuality()) {
+            case "flexivel":
+                ++impeding;
+                break;
             case "desajeitada":
                 --impeding;
                 break;
-            case "flexivel":
-                ++impeding;
             default:
                 break;
         }
