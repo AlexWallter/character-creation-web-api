@@ -39,7 +39,7 @@ public class PlayerCharacterController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createCharacter(@RequestBody @NotNull @Valid PlayerCharacterDTO character) {
+    public ResponseEntity<String> createCharacter(@RequestBody @NotNull @Valid PlayerCharacterDTO character) throws Exception {
         return ResponseEntity.ok(characterService.createCharacter(character));
     }
 

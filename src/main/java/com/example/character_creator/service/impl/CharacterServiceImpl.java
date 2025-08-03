@@ -55,10 +55,10 @@ public class CharacterServiceImpl implements CharacterService{
     }
 
     @Override
-    public String createCharacter(PlayerCharacterDTO character) {
+    public String createCharacter(PlayerCharacterDTO character) throws IllegalAccessException {
         
-        if ( character.exp()<0 || !character.attributes().validatingAttributes()) {
-            throw new IllegalArgumentException("The values must be positive numbers.");
+        if ( character.exp() < 0 ) {
+            throw new IllegalArgumentException("The exp value must be a positive number.");
         }
         else if (repository.existsByName(character.characterName())) {
             throw new IllegalArgumentException("A character with this name already exist.");

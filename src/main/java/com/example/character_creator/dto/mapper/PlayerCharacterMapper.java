@@ -36,7 +36,7 @@ public class PlayerCharacterMapper {
                 character.getItems());
     }
 
-    public PlayerCharacter toEntity(PlayerCharacterDTO characterDTO) {
+    public PlayerCharacter toEntity(PlayerCharacterDTO characterDTO) throws IllegalAccessException {
         if (characterDTO == null) {
             return null;
         }
@@ -57,7 +57,14 @@ public class PlayerCharacterMapper {
         character.setDefense();
         character.setItems(characterDTO.items());
 
-        return character;
+        boolean attributesIsValid = character.getAttributes().validatingAttributes();
+        
+        if(attributesIsValid) {
+            return character;
+        }
+        else {
+            throw new IllegalAccessException("the attribute values must sum up to at least 80.");
+        }
     }
 
     public Race convertRaceValue(String value) {

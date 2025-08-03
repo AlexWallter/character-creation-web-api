@@ -139,9 +139,11 @@ public class Attributes {
                                 getStrong(), 
                                 getVigilant()};
 
-        int[] test =  Arrays.stream(allAttributes).filter(n -> n>=0).toArray();
-        boolean isValid = (test.length == 8);
+        int[] attributesGreatersThanFive =  Arrays.stream(allAttributes).filter(n -> n>=5).toArray();
         
+        int sumOfAttributes = Arrays.stream(allAttributes).reduce(0, (a, b)-> a+b);
+        
+        boolean isValid = (attributesGreatersThanFive.length == 8) && (sumOfAttributes >= 80);
         return isValid;
     }
 }
