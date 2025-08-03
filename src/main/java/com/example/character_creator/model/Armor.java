@@ -98,7 +98,7 @@ public class Armor {
                 --impeding;
                 break;
             default:
-                break;
+                throw new IllegalArgumentException("The armor weight must be flexivel or desajeitada");
         }
     }    
 }
