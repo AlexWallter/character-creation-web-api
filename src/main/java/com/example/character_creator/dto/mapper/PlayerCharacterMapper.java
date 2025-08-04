@@ -9,13 +9,7 @@ import com.example.character_creator.model.PlayerCharacter;
 @Component
 public class PlayerCharacterMapper {
 
-    private final WeaponMapper weaponMapper;
-    public PlayerCharacterMapper(WeaponMapper weaponMapper) {
-        this.weaponMapper = weaponMapper;
-    }
-    
-
-    public PlayerCharacterDTO toDTO(PlayerCharacter character) {
+    static public PlayerCharacterDTO toDTO(PlayerCharacter character) {
         if (character == null) {
             return null;
         }
@@ -29,12 +23,12 @@ public class PlayerCharacterMapper {
                 character.getDefense(), 
                 character.getExp(), 
                 character.getMoney(),
-                weaponMapper.toWeaponDTO(character.getWeapon()),  
+                WeaponMapper.toWeaponDTO(character.getWeapon()),  
                 ArmorMapper.toArmorDTO(character.getArmor()), 
                 character.getItems());
     }
 
-    public PlayerCharacter toEntity(PlayerCharacterDTO characterDTO) throws IllegalAccessException {
+    static public PlayerCharacter toEntity(PlayerCharacterDTO characterDTO) throws IllegalAccessException {
         if (characterDTO == null) {
             return null;
         }
@@ -50,7 +44,7 @@ public class PlayerCharacterMapper {
         character.setHealth();
         character.setExp(characterDTO.exp());
         character.setMoney(characterDTO.money());
-        character.setWeapon(weaponMapper.toWeaponEntity(characterDTO.weapon()));
+        character.setWeapon(WeaponMapper.toWeaponEntity(characterDTO.weapon()));
         character.setArmor(ArmorMapper.toArmorEntity(characterDTO.armor()));
         character.setDefense();
         character.setItems(characterDTO.items());
@@ -65,7 +59,7 @@ public class PlayerCharacterMapper {
         }
     }
 
-    public Race convertRaceValue(String value) {
+    static public Race convertRaceValue(String value) {
         if (value == null) {
             return null;
         }

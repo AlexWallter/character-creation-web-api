@@ -8,7 +8,7 @@ import com.example.character_creator.model.Weapon;
 
 @Component
 public class WeaponMapper {
-    public WeaponDTO toWeaponDTO(Weapon weapon) {
+    static public WeaponDTO toWeaponDTO(Weapon weapon) {
         if (weapon == null) {
             return null;
         }
@@ -20,7 +20,7 @@ public class WeaponMapper {
                             weapon.getQualityDescription());
     }
 
-    public Weapon toWeaponEntity(WeaponDTO weaponDTO) {
+    static public Weapon toWeaponEntity(WeaponDTO weaponDTO) {
         if (weaponDTO == null) {
             return null;
         }
@@ -36,7 +36,7 @@ public class WeaponMapper {
         return weapon;
     }
 
-    public WeaponQuality convertQualityToValue(String quality) {
+    static public WeaponQuality convertQualityToValue(String quality) {
         return switch (quality) {
             case "impacto profundo" -> WeaponQuality.IMPACTO_PROFUNDO;
             case "contundente" -> WeaponQuality.CONTUNDENTE;

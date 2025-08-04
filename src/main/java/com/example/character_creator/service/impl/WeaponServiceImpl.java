@@ -16,18 +16,16 @@ import com.example.character_creator.service.WeaponService;
 @Service
 public class WeaponServiceImpl implements WeaponService {
     private final WeaponRepo repository;
-    private final WeaponMapper weaponMapper;
 
-    public WeaponServiceImpl(WeaponRepo repository, WeaponMapper weaponMapper) {
+    public WeaponServiceImpl(WeaponRepo repository) {
         this.repository = repository;
-        this.weaponMapper = weaponMapper;
     }
 
     @Override
     public List<WeaponDTO> getAllWeapons() {
         List<WeaponDTO> weaponDTOs = new ArrayList<>();
 
-        repository.findAll().forEach(record -> weaponDTOs.add(weaponMapper.toWeaponDTO(record)));
+        repository.findAll().forEach(record -> weaponDTOs.add(WeaponMapper.toWeaponDTO(record)));
         return weaponDTOs;
     }
 
@@ -41,7 +39,7 @@ public class WeaponServiceImpl implements WeaponService {
         if (temp.isPresent()) {
             Weapon weapon = temp.get();
 
-            return weaponMapper.toWeaponDTO(weapon);
+            return WeaponMapper.toWeaponDTO(weapon);
         }
         else {
             return null;
@@ -50,7 +48,7 @@ public class WeaponServiceImpl implements WeaponService {
 
     @Override
     public WeaponDTO createWeapon(WeaponDTO weapon) {
-        repository.save(weaponMapper.toWeaponEntity(weapon));
+        repository.save(WeaponMapper.toWeaponEntity(weapon));
         return weapon;
     }
 
@@ -66,9 +64,9 @@ public class WeaponServiceImpl implements WeaponService {
 
             weaponToUpdate.setName(weapon.name());
             weaponToUpdate.setDamage(ConvertStringToEnumValue.convertDiceToValue(weapon.damage()));
-            weaponToUpdate.setQuality(weaponMapper.convertQualityToValue(weapon.quality()));
+            weaponToUpdate.setQuality(WeaponMapper.convertQualityToValue(weapon.quality()));
             repository.save(weaponToUpdate);
-            return weaponMapper.toWeaponDTO(weaponToUpdate);
+            return WeaponMapper.toWeaponDTO(weaponToUpdate);
         }
         else {
             return null;

@@ -19,15 +19,12 @@ public class CharacterServiceImpl implements CharacterService{
 
     private final PlayerCharacterRepo repository;
     private final WeaponRepo weaponRepo;
-    private final PlayerCharacterMapper playerCharacterMapper;
 
-    public CharacterServiceImpl(PlayerCharacterRepo repository, 
-                                PlayerCharacterMapper playerCharacterMapper,
+    public CharacterServiceImpl(PlayerCharacterRepo repository,
                                 WeaponRepo weaponRepo) 
     {
         this.repository = repository;
         this.weaponRepo = weaponRepo;
-        this.playerCharacterMapper = playerCharacterMapper;
     }
     
     @Override
@@ -35,7 +32,7 @@ public class CharacterServiceImpl implements CharacterService{
         List<PlayerCharacterDTO> character = new ArrayList<>();
 
         repository.findAll().forEach(playerCharacter -> {
-            character.add(playerCharacterMapper.toDTO(playerCharacter));
+            character.add(PlayerCharacterMapper.toDTO(playerCharacter));
         });
         
         return character;
@@ -46,7 +43,7 @@ public class CharacterServiceImpl implements CharacterService{
         Optional<PlayerCharacter> temp = repository.findById(id);
 
         if (temp.isPresent()) {
-            PlayerCharacterDTO character = playerCharacterMapper.toDTO(temp.get());
+            PlayerCharacterDTO character = PlayerCharacterMapper.toDTO(temp.get());
             return character;
         }
         else {
@@ -64,7 +61,7 @@ public class CharacterServiceImpl implements CharacterService{
             throw new IllegalArgumentException("A character with this name already exist.");
         }
         
-        PlayerCharacter playerCharacter = playerCharacterMapper.toEntity(character);
+        PlayerCharacter playerCharacter = PlayerCharacterMapper.toEntity(character);
         String weaponName = playerCharacter.getWeapon().getName();
 
         if (weaponRepo.existsByName(weaponName)) {
