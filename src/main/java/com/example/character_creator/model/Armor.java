@@ -1,5 +1,7 @@
 package com.example.character_creator.model;
 
+import java.util.Objects;
+
 import com.example.character_creator.enums.ArmorQuality;
 import com.example.character_creator.enums.ArmorWeight;
 import com.example.character_creator.enums.Dice;
@@ -100,5 +102,24 @@ public class Armor {
             default:
                 throw new IllegalArgumentException("The armor weight must be flexivel or desajeitada");
         }
-    }    
+    } 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        
+        Armor other = (Armor) o;
+        
+        return impeding == other.impeding &&
+               Objects.equals(name, other.name) &&
+               Objects.equals(protection, other.protection) &&
+               Objects.equals(armorWeight, other.armorWeight) &&
+               Objects.equals(armorQuality, other.armorQuality);
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, protection, armorWeight, armorQuality, impeding);
+    }
 }
