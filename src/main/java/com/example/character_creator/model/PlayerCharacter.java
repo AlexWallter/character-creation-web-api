@@ -1,6 +1,7 @@
 package com.example.character_creator.model;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -151,5 +152,27 @@ public class PlayerCharacter {
         //Limiar de corrupcao arredondado para cima
         int corruptionThreshold = getAttributes().getVigilant()/2 + getAttributes().getVigilant()%2;
         this.corruption.setCorruptionThreshold(corruptionThreshold);
+    }
+
+        @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        
+        PlayerCharacter other = (PlayerCharacter) o;
+        
+        return Objects.equals(name, other.name) &&
+               Objects.equals(weapon, other.weapon) &&
+               Objects.equals(armor, other.armor) &&
+               Objects.equals(race, other.race) && 
+               Objects.equals(exp, other.exp) &&
+               Objects.equals(money, other.money)&&
+               Objects.equals(defense, other.defense);
+
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, weapon, armor, race, exp, money, defense);
     }
 }

@@ -1,5 +1,7 @@
 package com.example.character_creator.model;
 
+import java.util.Objects;
+
 import org.hibernate.validator.constraints.Length;
 
 import com.example.character_creator.enums.Dice;
@@ -91,5 +93,23 @@ public class Weapon {
             case "sem qualidade" -> "A arma não têm qualidades especificas.";
             default -> throw new IllegalArgumentException("Weapon quality name is invalid.");
         };
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        
+        Weapon other = (Weapon) o;
+        
+        return Objects.equals(name, other.name) &&
+               Objects.equals(damage, other.damage) &&
+               Objects.equals(quality, other.quality) &&
+               Objects.equals(qualityDescription, other.qualityDescription);
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, damage, quality, qualityDescription);
     }
 }
