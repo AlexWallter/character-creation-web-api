@@ -9,7 +9,7 @@ import com.example.character_creator.model.Armor;
 
 @Component
 public class ArmorMapper {
-    public ArmorDTO toArmorDTO(Armor armor) {
+    static public ArmorDTO toArmorDTO(Armor armor) {
         if (armor == null) {
             return null;
         }
@@ -22,7 +22,7 @@ public class ArmorMapper {
                              armor.getimpeding());
     }
 
-    public Armor toArmorEntity(ArmorDTO armorDTO) {
+    static public Armor toArmorEntity(ArmorDTO armorDTO) {
         if (armorDTO == null) {
             return null;
         }
@@ -38,7 +38,7 @@ public class ArmorMapper {
         return armor;
     }
 
-    public ArmorWeight convertArmorWeightValue(String armorWeight) {
+    static public ArmorWeight convertArmorWeightValue(String armorWeight) {
         return switch (armorWeight) {
             case "leve" -> ArmorWeight.LEVE;
             case "media" -> ArmorWeight.MEDIA;
@@ -47,7 +47,7 @@ public class ArmorMapper {
         };
     }
 
-    public ArmorQuality convertArmorQualityValue(String armorQuality) {
+    static public ArmorQuality convertArmorQualityValue(String armorQuality) {
         return switch (armorQuality) {
             case "desajeitada" -> ArmorQuality.DESAJEITADA;
             case "flexivel" -> ArmorQuality.FLEXIVEL;

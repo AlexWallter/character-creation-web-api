@@ -10,10 +10,8 @@ import com.example.character_creator.model.PlayerCharacter;
 public class PlayerCharacterMapper {
 
     private final WeaponMapper weaponMapper;
-    private final ArmorMapper armorMapper;
-    public PlayerCharacterMapper(WeaponMapper weaponMapper, ArmorMapper armorMapper) {
+    public PlayerCharacterMapper(WeaponMapper weaponMapper) {
         this.weaponMapper = weaponMapper;
-        this.armorMapper = armorMapper;
     }
     
 
@@ -32,7 +30,7 @@ public class PlayerCharacterMapper {
                 character.getExp(), 
                 character.getMoney(),
                 weaponMapper.toWeaponDTO(character.getWeapon()),  
-                armorMapper.toArmorDTO(character.getArmor()), 
+                ArmorMapper.toArmorDTO(character.getArmor()), 
                 character.getItems());
     }
 
@@ -53,7 +51,7 @@ public class PlayerCharacterMapper {
         character.setExp(characterDTO.exp());
         character.setMoney(characterDTO.money());
         character.setWeapon(weaponMapper.toWeaponEntity(characterDTO.weapon()));
-        character.setArmor(armorMapper.toArmorEntity(characterDTO.armor()));
+        character.setArmor(ArmorMapper.toArmorEntity(characterDTO.armor()));
         character.setDefense();
         character.setItems(characterDTO.items());
 
