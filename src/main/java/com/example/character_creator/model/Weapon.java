@@ -1,7 +1,5 @@
 package com.example.character_creator.model;
 
-import java.util.Objects;
-
 import org.hibernate.validator.constraints.Length;
 
 import com.example.character_creator.enums.Dice;
@@ -16,7 +14,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity(name = "tb_weapons")
 public class Weapon {
     @Id
@@ -39,33 +45,6 @@ public class Weapon {
     @NotNull
     private String qualityDescription;
     
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public Dice getDamage() {
-        return damage;
-    }
-    public void setDamage(Dice damage) {
-        this.damage = damage;
-    }
-    public WeaponQuality getQuality() {
-        return quality;
-    }
-    public void setQuality(WeaponQuality quality) {
-        this.quality = quality;
-    }
-    public String getQualityDescription() {
-        return qualityDescription;
-    }
     public void setQualityDescription(String weaponQuality) {
         this.qualityDescription = switch (weaponQuality) {
             case "impacto profundo" -> "A arma causa +1 de dano.";
@@ -93,23 +72,5 @@ public class Weapon {
             case "sem qualidade" -> "A arma não têm qualidades especificas.";
             default -> throw new IllegalArgumentException("Weapon quality name is invalid.");
         };
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        
-        Weapon other = (Weapon) o;
-        
-        return Objects.equals(name, other.name) &&
-               Objects.equals(damage, other.damage) &&
-               Objects.equals(quality, other.quality) &&
-               Objects.equals(qualityDescription, other.qualityDescription);
-    }
-    
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, damage, quality, qualityDescription);
     }
 }

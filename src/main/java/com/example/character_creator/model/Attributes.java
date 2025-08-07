@@ -10,7 +10,16 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity(name = "tb_attributes")
 public class Attributes {
     @Id
@@ -64,70 +73,6 @@ public class Attributes {
     @Min(value = 5, message = "The atributte cannot have a value less than 5")
     @Max(value = 15, message = "The atributte cannot have a value greater than 15")
     private int vigilant;
-
-    public int getAccurate() {
-        return accurate;
-    }
-
-    public void setAccurate(int accurate) {
-        this.accurate = accurate;
-    }
-
-    public int getCunning() {
-        return cunning;
-    }
-
-    public void setCunning(int cunning) {
-        this.cunning = cunning;
-    }
-
-    public int getDiscreet() {
-        return discreet;
-    }
-
-    public void setDiscreet(int discreet) {
-        this.discreet = discreet;
-    }
-
-    public int getPersuasive() {
-        return persuasive;
-    }
-
-    public void setPersuasive(int persuasive) {
-        this.persuasive = persuasive;
-    }
-
-    public int getQuick() {
-        return quick;
-    }
-
-    public void setQuick(int quick) {
-        this.quick = quick;
-    }
-
-    public int getResolute() {
-        return resolute;
-    }
-
-    public void setResolute(int resolute) {
-        this.resolute = resolute;
-    }
-
-    public int getStrong() {
-        return strong;
-    }
-
-    public void setStrong(int strong) {
-        this.strong = strong;
-    }
-
-    public int getVigilant() {
-        return vigilant;
-    }
-
-    public void setVigilant(int vigilant) {
-        this.vigilant = vigilant;
-    }
 
     public boolean validatingAttributes() {
         int[] allAttributes = {getAccurate(), 

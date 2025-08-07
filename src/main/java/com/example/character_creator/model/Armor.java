@@ -1,7 +1,5 @@
 package com.example.character_creator.model;
 
-import java.util.Objects;
-
 import com.example.character_creator.enums.ArmorQuality;
 import com.example.character_creator.enums.ArmorWeight;
 import com.example.character_creator.enums.Dice;
@@ -17,7 +15,15 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.NegativeOrZero;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity(name = "tb_armor")
 public class Armor {
     @Id
@@ -43,40 +49,7 @@ public class Armor {
     @NotNull
     @NegativeOrZero
     private int impeding;
-    
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public ArmorWeight getArmorWeight() {
-        return armorWeight;
-    }
-    public ArmorQuality getArmorQuality() {
-        return armorQuality;
-    }
-    public void setArmorQuality(ArmorQuality armorQuality) {
-        this.armorQuality = armorQuality;
-    }
-    public void setArmorWeight(ArmorWeight armorWeight) {
-        this.armorWeight = armorWeight;
-    }
-    public Dice getProtection() {
-        return protection;
-    }
-    public void setProtection(Dice protection) {
-        this.protection = protection;
-    }
-    public int getimpeding() {
-        return impeding;
-    }
+
     public void setImpeding() {
         switch (armorWeight.getWeight()) {
             case "leve":
@@ -102,24 +75,5 @@ public class Armor {
             default:
                 throw new IllegalArgumentException("The armor weight must be flexivel or desajeitada");
         }
-    } 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        
-        Armor other = (Armor) o;
-        
-        return impeding == other.impeding &&
-               Objects.equals(name, other.name) &&
-               Objects.equals(protection, other.protection) &&
-               Objects.equals(armorWeight, other.armorWeight) &&
-               Objects.equals(armorQuality, other.armorQuality);
-    }
-    
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, protection, armorWeight, armorQuality, impeding);
     }
 }

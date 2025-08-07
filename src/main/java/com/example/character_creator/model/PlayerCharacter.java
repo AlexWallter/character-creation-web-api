@@ -1,7 +1,6 @@
 package com.example.character_creator.model;
 
 import java.util.List;
-import java.util.Objects;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -20,7 +19,15 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity(name = "tb_characters")
 public class PlayerCharacter {
     @Id
@@ -68,33 +75,6 @@ public class PlayerCharacter {
     
     private List<String> items;
     
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public Race getRace() {
-        return race;
-    }
-    public void setRace(Race race) {
-        this.race = race;
-    }
-    public Attributes getAttributes() {
-        return attributes;
-    }
-    public void setAttributes(Attributes attributes) {
-        this.attributes = attributes;
-    }
-    public int getHealth() {
-        return Health;
-    }
     public void setHealth() {
         if(getAttributes().getStrong() >=10 ) {
             this.Health = getAttributes().getStrong();
@@ -103,76 +83,14 @@ public class PlayerCharacter {
             this.Health = 10;
         }
     }
-    public int getDefense() {
-        return defense;
-    }
-    public void setDefense() {
-        this.defense = getAttributes().getQuick() + getArmor().getimpeding();
-    }
-    public int getExp() {
-        return exp;
-    }
-    public void setExp(int exp) {
-        this.exp = exp;
-    }
-    public int getMoney() {
-        return money;
-    }
-    public void setMoney(int money) {
-        this.money = money;
-    }
-    public Weapon getWeapon() {
-        return weapon;
-    }
-    public void setWeapon(Weapon weapon) {
-        this.weapon = weapon;
-    }
-    public Armor getArmor() {
-        return armor;
-    }
-    public void setArmor(Armor armor) {
-        this.armor = armor;
-    }
-    public List<String> getItems() {
-        return items;
-    }
-    public void setItems(List<String> items) {
-        this.items = items;
-    }
 
-    public Corruption getCorruption() {
-        return corruption;
-    }
-    
-    public void setCorruption(Corruption corruption) {
-        this.corruption = corruption;
+    public void setDefense() {
+        this.defense = getAttributes().getQuick() + getArmor().getImpeding();
     }
 
     public void setCharacterCorruptionThreshold() {
         //Limiar de corrupcao arredondado para cima
         int corruptionThreshold = getAttributes().getVigilant()/2 + getAttributes().getVigilant()%2;
         this.corruption.setCorruptionThreshold(corruptionThreshold);
-    }
-
-        @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        
-        PlayerCharacter other = (PlayerCharacter) o;
-        
-        return Objects.equals(name, other.name) &&
-               Objects.equals(weapon, other.weapon) &&
-               Objects.equals(armor, other.armor) &&
-               Objects.equals(race, other.race) && 
-               Objects.equals(exp, other.exp) &&
-               Objects.equals(money, other.money)&&
-               Objects.equals(defense, other.defense);
-
-    }
-    
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, weapon, armor, race, exp, money, defense);
     }
 }
