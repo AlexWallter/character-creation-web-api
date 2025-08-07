@@ -26,11 +26,11 @@ public class ArmorTest {
             armor.setArmorWeight(armorWeight);
             armor.setArmorQuality(ArmorQuality.FLEXIVEL);
             armor.setImpeding();
-            empedingValues[i] = armor.getimpeding();
+            empedingValues[i] = armor.getImpeding();
 
             armor.setArmorQuality(ArmorQuality.DESAJEITADA);
             armor.setImpeding();
-            empedingValues[i+3] = armor.getimpeding();
+            empedingValues[i+3] = armor.getImpeding();
         }
 
         Assertions.assertAll(
