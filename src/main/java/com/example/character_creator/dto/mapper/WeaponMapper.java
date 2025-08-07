@@ -25,12 +25,13 @@ public class WeaponMapper {
             return null;
         }
 
-        Weapon weapon = new Weapon();
-        
-        weapon.setId(weaponDTO.id());
-        weapon.setName(weaponDTO.name());
-        weapon.setDamage(ConvertStringToEnumValue.convertDiceToValue(weaponDTO.damage()));
-        weapon.setQuality(convertQualityToValue(weaponDTO.quality()));
+        Weapon weapon = Weapon.builder()
+                                .id(weaponDTO.id())
+                                .name(weaponDTO.name())
+                                .quality(convertQualityToValue(weaponDTO.quality()))
+                                .damage(ConvertStringToEnumValue.convertDiceToValue(weaponDTO.damage()))
+                                .build();
+                                
         weapon.setQualityDescription(weaponDTO.quality());
 
         return weapon;

@@ -15,17 +15,17 @@ public class PlayerCharacterMapper {
         }
 
         return new PlayerCharacterDTO(character.getId(), 
-                character.getName(), 
-                character.getRace().getValue(), 
-                character.getAttributes(),
-                character.getCorruption(), 
-                character.getHealth(), 
-                character.getDefense(), 
-                character.getExp(), 
-                character.getMoney(),
-                WeaponMapper.toWeaponDTO(character.getWeapon()),  
-                ArmorMapper.toArmorDTO(character.getArmor()), 
-                character.getItems());
+                                        character.getName(), 
+                                        character.getRace().getValue(), 
+                                        character.getAttributes(),
+                                        character.getCorruption(), 
+                                        character.getHealth(), 
+                                        character.getDefense(), 
+                                        character.getExp(), 
+                                        character.getMoney(),
+                                        WeaponMapper.toWeaponDTO(character.getWeapon()),  
+                                        ArmorMapper.toArmorDTO(character.getArmor()), 
+                                        character.getItems());
     }
 
     static public PlayerCharacter toEntity(PlayerCharacterDTO characterDTO) throws IllegalAccessException {
@@ -33,21 +33,22 @@ public class PlayerCharacterMapper {
             return null;
         }
 
-        PlayerCharacter character = new PlayerCharacter();
-        character.setId(characterDTO.id());
-        character.setName(characterDTO.characterName());
-        character.setRace(convertRaceValue(characterDTO.race()));
-        character.setAttributes(characterDTO.attributes());
-        character.setCorruption(characterDTO.corruption());
+        PlayerCharacter character = PlayerCharacter.builder()
+                                                    .id(characterDTO.id())
+                                                    .name(characterDTO.characterName())
+                                                    .race(convertRaceValue(characterDTO.race()))
+                                                    .attributes(characterDTO.attributes())
+                                                    .corruption(characterDTO.corruption())
+                                                    .exp(characterDTO.exp())
+                                                    .money(characterDTO.money())
+                                                    .weapon(WeaponMapper.toWeaponEntity(characterDTO.weapon()))
+                                                    .armor(ArmorMapper.toArmorEntity(characterDTO.armor()))
+                                                    .items(characterDTO.items())
+                                                    .build();
+
         character.setCharacterCorruptionThreshold();
-        character.getCorruption().setTotalCorruption();
         character.setHealth();
-        character.setExp(characterDTO.exp());
-        character.setMoney(characterDTO.money());
-        character.setWeapon(WeaponMapper.toWeaponEntity(characterDTO.weapon()));
-        character.setArmor(ArmorMapper.toArmorEntity(characterDTO.armor()));
         character.setDefense();
-        character.setItems(characterDTO.items());
 
         boolean attributesIsValid = character.getAttributes().validatingAttributes();
         

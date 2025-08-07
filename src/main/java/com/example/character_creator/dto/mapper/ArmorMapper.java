@@ -19,7 +19,7 @@ public class ArmorMapper {
                              armor.getArmorWeight().getWeight(),
                              armor.getArmorQuality().getQuality(),
                              armor.getProtection().getDice(), 
-                             armor.getimpeding());
+                             armor.getImpeding());
     }
 
     static public Armor toArmorEntity(ArmorDTO armorDTO) {
@@ -27,14 +27,16 @@ public class ArmorMapper {
             return null;
         }
 
-        Armor armor = new Armor();
-        armor.setId(armorDTO.id());
-        armor.setName(armorDTO.name());
-        armor.setArmorWeight(convertArmorWeightValue(armorDTO.armorWeight()));
-        armor.setArmorQuality(convertArmorQualityValue(armorDTO.armorQuality()));
-        armor.setProtection(ConvertStringToEnumValue.convertDiceToValue(armorDTO.protection()));
+        Armor armor = Armor.builder()
+                            .id(armorDTO.id())
+                            .name(armorDTO.name())
+                            .protection(ConvertStringToEnumValue.convertDiceToValue(armorDTO.protection()))
+                            .armorWeight(convertArmorWeightValue(armorDTO.armorWeight()))
+                            .armorQuality(convertArmorQualityValue(armorDTO.armorQuality()))
+                            .build();
+
         armor.setImpeding();
-        
+
         return armor;
     }
 
