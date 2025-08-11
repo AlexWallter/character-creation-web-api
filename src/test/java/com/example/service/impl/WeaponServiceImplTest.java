@@ -1,10 +1,12 @@
 package com.example.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -76,5 +78,15 @@ public class WeaponServiceImplTest {
         assertEquals(ExpectedWeaponDTOs, actualWeaponDTOs);
 
         verify(repository).findAll();
+    }
+
+    @Test
+    void testGetWeaponById() {
+
+        when(repository.findById(anyLong())).thenReturn(Optional.of(weapon1));
+
+        WeaponDTO actualWeaponDTO = weaponServiceImpl.getWeaponByid(1L);
+
+        assertEquals(weaponDTO1, actualWeaponDTO);
     }
 }
