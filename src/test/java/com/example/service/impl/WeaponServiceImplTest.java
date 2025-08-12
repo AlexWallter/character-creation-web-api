@@ -2,6 +2,7 @@ package com.example.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -16,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.example.character_creator.dto.WeaponDTO;
+import com.example.character_creator.dto.mapper.WeaponMapper;
 import com.example.character_creator.enums.Dice;
 import com.example.character_creator.enums.WeaponQuality;
 import com.example.character_creator.model.Weapon;
@@ -54,26 +56,26 @@ public class WeaponServiceImplTest {
     @BeforeEach
     void setup() {
         weapon1 = Weapon.builder()
-        .id(1L)
-        .name("exemple")
-        .damage(Dice.D6)
-        .quality(WeaponQuality.NO_QUALITY)
-        .build();
+                        .id(1L)
+                        .name("exemple")
+                        .damage(Dice.D6)
+                        .quality(WeaponQuality.NO_QUALITY)
+                        .build();
         
         weapon1.setQualityDescription("sem qualidade");
 
         weapon2 = Weapon.builder()
-        .id(2L)
-        .name("other exemple")
-        .damage(Dice.D8)
-        .quality(WeaponQuality.PRECISA)
-        .build();
+                        .id(2L)
+                        .name("other exemple")
+                        .damage(Dice.D8)
+                        .quality(WeaponQuality.PRECISA)
+                        .build();
 
         weapon2.setQualityDescription("precisa");
     }
 
-        @Test
-        void testGetAllWeapon() {
+    @Test
+    void testGetAllWeapon() {
         List<Weapon> allWeapons = List.of(weapon1, weapon2);
         List<WeaponDTO> ExpectedWeaponDTOs = List.of(weaponDTO1, weaponDTO2);
 
@@ -97,7 +99,16 @@ public class WeaponServiceImplTest {
     }
 
     @Test
-    void testUptadeWeapon() {
+    void testCreateWeapon() {
+        when(repository.save(WeaponMapper.toWeaponEntity(weaponDTO1))).thenReturn(null);
+
+        weaponServiceImpl.createWeapon(weaponDTO1);
+
+        verify(repository).save(WeaponMapper.toWeaponEntity(weaponDTO1));
+    }
+
+    @Test
+    void testUpdateWeapon() {
         
         when(repository.findById(anyLong())).thenReturn(Optional.of(weapon1));
         when(repository.save(weapon1)).thenReturn(null);
@@ -105,5 +116,15 @@ public class WeaponServiceImplTest {
         WeaponDTO actualWeaponDTO = weaponServiceImpl.uptadeWeapon(1L, weaponDTO2);
 
         assertEquals(updatedWeaponDTO, actualWeaponDTO);
+    }
+
+    @Test
+    void testDeleteWeapon() {
+
+        doNothing().when(repository).deleteById(anyLong());
+
+        weaponServiceImpl.deleteWeapon(1L);
+
+        verify(repository).deleteById(1L);
     }
 }
