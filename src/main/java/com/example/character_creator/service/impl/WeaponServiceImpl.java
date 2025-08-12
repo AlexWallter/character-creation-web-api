@@ -65,6 +65,7 @@ public class WeaponServiceImpl implements WeaponService {
             weaponToUpdate.setName(weapon.name());
             weaponToUpdate.setDamage(ConvertStringToEnumValue.convertDiceToValue(weapon.damage()));
             weaponToUpdate.setQuality(WeaponMapper.convertQualityToValue(weapon.quality()));
+            weaponToUpdate.setQualityDescription(weapon.quality());
             repository.save(weaponToUpdate);
             return WeaponMapper.toWeaponDTO(weaponToUpdate);
         }
