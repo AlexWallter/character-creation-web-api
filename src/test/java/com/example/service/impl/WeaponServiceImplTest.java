@@ -44,6 +44,12 @@ public class WeaponServiceImplTest {
                                                 "d8", 
                                                 "precisa", 
                                                 "Concede +1 em Testes de ataque.");
+
+    private WeaponDTO updatedWeaponDTO = new WeaponDTO(1L, 
+                                                "other exemple", 
+                                                "d8", 
+                                                "precisa", 
+                                                "Concede +1 em Testes de ataque.");
     
     @BeforeEach
     void setup() {
@@ -88,5 +94,16 @@ public class WeaponServiceImplTest {
         WeaponDTO actualWeaponDTO = weaponServiceImpl.getWeaponByid(1L);
 
         assertEquals(weaponDTO1, actualWeaponDTO);
+    }
+
+    @Test
+    void testUptadeWeapon() {
+        
+        when(repository.findById(anyLong())).thenReturn(Optional.of(weapon1));
+        when(repository.save(weapon1)).thenReturn(null);
+
+        WeaponDTO actualWeaponDTO = weaponServiceImpl.uptadeWeapon(1L, weaponDTO2);
+
+        assertEquals(updatedWeaponDTO, actualWeaponDTO);
     }
 }
