@@ -3,6 +3,8 @@ package com.example.service.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -154,5 +156,28 @@ public class CharacterServiceImplTest {
         when(repository.save(PlayerCharacterMapper.toEntity(characterDTO1))).thenReturn(null);
 
         characterService.createCharacter(characterDTO1);
+    }
+
+    @Test
+    void testUpdatingCharacter() {
+
+        when(repository.findById(anyLong())).thenReturn(Optional.of(playerCharacter));
+        when(repository.save(playerCharacter)).thenReturn(null);
+
+        characterService.updatingCharacter(1L, characterDTO1);
+
+        verify(repository).save(playerCharacter);
+    }
+
+    @Test
+    void testDeleteCharacter() {
+
+        when(repository.existsById(anyLong())).thenReturn(true);
+
+        doNothing().when(repository).deleteById(anyLong());
+
+       characterService.deleteCharacterById(1L);
+
+       verify(repository).deleteById(1L);
     }
 }
